@@ -48,10 +48,11 @@ export function toString(node: Node, indentation = "") {
 }
 
 export function toUnscheduledTask(sTask: STask, day: Moment) {
+  // console.log("TBDT toUnscheduledTask", sTask, day);
   return {
     durationMinutes: defaultDurationMinutes,
     // todo: bad abstraction
-    listTokens: `${sTask.symbol} [${sTask.status}] `,
+    listTokens: `${sTask.symbol} [${sTask.status ?? ""}] `,
     firstLineText: sTask.text,
     text: toString(sTask),
     location: {
@@ -78,10 +79,12 @@ export function toTask(sTask: STask, day: Moment): Task {
   const durationMinutes = endTime?.isAfter(startTime)
     ? getDiffInMinutes(endTime, startTime)
     : undefined;
+    
+  console.log("TBDT toTask", sTask, day);
 
   return {
     startTime,
-    listTokens: `${sTask.symbol} [${sTask.status}] `,
+    listTokens: `${sTask.symbol} [${sTask.status ?? ""}] `,
     firstLineText,
     text,
     durationMinutes,
